@@ -1,9 +1,12 @@
-import os,sys
+import os
+import sys
 
 cyclename = sys.argv[1]
 
-out_h = open(cyclename+'.h','w')
-print>>out_h,'''#ifndef {0}_h
+# .h 파일 생성
+out_h = open(cyclename + '.h', 'w')
+print(
+    '''#ifndef {0}_h
 #define {0}_h
 
 #include "AnalyzerCore.h"
@@ -21,21 +24,22 @@ public:
 
 }};
 
-
-
 #endif
-'''.format(cyclename)
+'''.format(cyclename),
+    file=out_h,
+)
 out_h.close()
 
-out_c = open(cyclename+'.C','w')
-print>>out_c,'''#include "{0}.h"
+# .C 파일 생성
+out_c = open(cyclename + '.C', 'w')
+print(
+    '''#include "{0}.h"
 
 void {0}::initializeAnalyzer(){{
 
 }}
 
 void {0}::executeEvent(){{
-
 
   AnalyzerParameter param;
 
@@ -59,8 +63,11 @@ void {0}::executeEventFromParameter(AnalyzerParameter param){{
 
 }}
 
-'''.format(cyclename)
+'''.format(cyclename),
+    file=out_c,
+)
 out_c.close()
 
-print 'mv '+cyclename+'.h $SKFlat_WD/Analyzers/include/'
-print 'mv '+cyclename+'.C $SKFlat_WD/Analyzers/src/'
+# 출력 안내
+print('mv ' + cyclename + '.h $SKFlat_WD/Analyzers/include/')
+print('mv ' + cyclename + '.C $SKFlat_WD/Analyzers/src/')
